@@ -2,6 +2,7 @@ import React, {useState, useEffect, createContext, useContext} from "react";
 import {signInWithPopup, GithubAuthProvider, onAuthStateChanged, auth, signOut} from "./firebase";
 import type {User} from "./firebase";
 import {createUser} from "./db";
+import {UserCredential} from "@firebase/auth";
 
 //types
 export interface ContextTypes {
@@ -50,7 +51,7 @@ const useProvideAuth = (): ContextTypes => {
 
   const signInWithGitHub = async () => {
     return await signInWithPopup(auth, new GithubAuthProvider())
-      .then((res) => handleUser(res.user));
+      .then((res: UserCredential) => handleUser(res.user));
   }
 
   const sign_out = async () => {
